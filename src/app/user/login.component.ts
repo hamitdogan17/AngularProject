@@ -9,21 +9,21 @@ import { Router } from '@angular/router';
   `]
 })
 
-export class LoginComponent{
-  userName
-  password
-  mouseroverLogin
-  
+export class LoginComponent {
+  userName;
+  password;
+  mouseroverLogin;
+
   constructor(private authService: AuthService, private router: Router) {
 
   }
 
-  login(formValues){
-    this.authService.loginUser(formValues.userName, formValues.password)
-    this.router.navigate(['events'])
+  login(formValues) {
+    this.authService.loginUser(formValues.userName, formValues.password);
+    this.router.navigate(['events']);
   }
 
-  cancel(){
-    this.router.navigate(['events'])
+  cancel() {
+    this.router.navigate(['events']);
   }
 }

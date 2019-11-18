@@ -6,6 +6,7 @@ import { ProfileComponent } from './profile.component';
 import { userRoutes } from './user.routes';
 import { LoginComponent } from './login.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,10 +20,13 @@ import { LoginComponent } from './login.component';
   ],
   providers: [
 
+  ],
+  exports: [
+    LoginComponent,
+    ProfileComponent
   ]
 })
 
 export class UserModule {
 
 }
-

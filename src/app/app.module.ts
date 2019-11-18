@@ -1,26 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {
+  EventService,
   EventsListComponent,
+  EventThumbnailComponent,
   EventDetailsComponent,
   CreateEventComponent,
   EventRouteActivator,
   EventListResolver,
-  EventThumbnailComponent,
+  CreateSessionComponent,
+  SessionListComponent,
   DurationPipe
-
 } from './events/index';
 import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/navbar.component';
-import { EventService } from './events/shared/event.service';
 import { TOASTR_TOKEN, Toastr } from './common/toastr.service';
-import { RouterModule, Router } from '@angular/router';
-import { appRotes } from 'src/routes';
+import { RouterModule } from '@angular/router';
+import { appRotes } from 'src/app/routes';
 import { Error404Component } from './errors/404.components';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CreateSessionComponent } from './events/event-details/create-session.component';
-import { SessionListComponent } from './events/event-details/session-list.component';
 import { CollapsibleWellComponent } from './common/collapsible-well.component';
 
 declare let toastr: Toastr;
@@ -29,8 +28,8 @@ declare let toastr: Toastr;
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRotes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRotes)
   ],
   declarations: [
     EventsAppComponent,
@@ -59,9 +58,10 @@ declare let toastr: Toastr;
       useValue: checkDirtyState
     }
   ],
+  exports: [RouterModule],
   bootstrap: [EventsAppComponent]
 })
-export class AppModule {}
+export class AppModule { }
 
 export function checkDirtyState(component: CreateEventComponent) {
   if (component.isDirty) {

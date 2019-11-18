@@ -4,11 +4,11 @@ import { IUser } from './user.model';
 
 
 @Injectable()
-export class AuthService{
-  currentUser: IUser
-  loginUser(userName: string, password: string){
+export class AuthService {
+  currentUser: IUser;
+  loginUser(userName: string, password: string) {
     this.currentUser = {
-      id: 1,
+      id: Math.random(),
       userName: userName,
       firstName: 'Hamit',
       lastName: 'Doğan'
@@ -19,8 +19,8 @@ export class AuthService{
     return !!this.currentUser;
   }
 
-  updateCurrentUser(firstName:string, lastName:string) {
-    this.currentUser.firstName = firstName
-    this.currentUser.lastName = lastName
+  updateCurrentUser(firstName: string, lastName: string) {
+    this.currentUser.firstName = firstName;
+    this.currentUser.lastName = lastName;
   }
 }
