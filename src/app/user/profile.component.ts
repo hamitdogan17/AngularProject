@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     private toastr: Toastr) {
   }
   ngOnInit() {
-    this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z.*]')]);
+    this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
     this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
     this.profileForm = new FormGroup({
       firstName: this.firstName,
@@ -39,10 +39,10 @@ export class ProfileComponent implements OnInit {
     }
   }
   validateFirstName() {
-    return this.firstName.valid || this.profileForm.controls.firstName.untouched;
+    return this.firstName.valid || this.firstName.untouched;
   }
   validateLastName() {
-    return this.lastName.valid || this.profileForm.controls.lastName.untouched;
+    return this.lastName.valid || this.lastName.untouched;
   }
   cancel() {
     this.router.navigate(['events']);
