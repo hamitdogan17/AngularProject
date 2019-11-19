@@ -12,7 +12,7 @@ export class AuthService {
       userName: userName,
       firstName: 'Hamit',
       lastName: 'Doğan'
-    }
+    };
   }
 
   isAuthenticated() {

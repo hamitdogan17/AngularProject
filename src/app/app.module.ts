@@ -10,6 +10,8 @@ import {
   EventListResolver,
   CreateSessionComponent,
   SessionListComponent,
+  UpvoteComponent,
+  VoterService,
   DurationPipe
 } from './events/index';
 import { EventsAppComponent } from './events-app.component';
@@ -21,8 +23,9 @@ import { Error404Component } from './errors/404.components';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// tslint:disable-next-line: prefer-const
 let toastr: Toastr;
-let jQuery = window['$'];
+const jQuery = window['$'];
 
 @NgModule({
   imports: [
@@ -43,6 +46,7 @@ let jQuery = window['$'];
     SessionListComponent,
     CollapsibleWellComponent,
     SimpleListComponent,
+    UpvoteComponent,
     ModalTriggerDirective,
     DurationPipe
   ],
@@ -52,6 +56,7 @@ let jQuery = window['$'];
     { provide: JQ_TOKEN, useValue: jQuery, },
     EventRouteActivator,
     EventListResolver,
+    VoterService,
     AuthService,
     {
       provide: 'canDeactivateCreateEvent',
