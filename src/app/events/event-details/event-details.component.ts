@@ -1,7 +1,7 @@
 
 import { EventService } from '../shared/event.service'
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { IEvent, ISession } from '../shared';
 
 @Component({
@@ -23,15 +23,18 @@ export class EventDetailsComponent implements OnInit {
   }
 
   // tslint:disable-next-line: use-life-cycle-interface
-  ngOnInit(){
-    this.event = this.eventService.getEvent(+this.route.snapshot.params['id']);
+  ngOnInit() {
+    this.route.params.forEach((params: Params) => {
+      this.event = this.eventService.getEvent(+params['id']);
+      this.addMode = false;
+    });
   }
 
   addSession() {
     this.addMode = true;
   }
 
-  saveNewSession(session: ISession){
+  saveNewSession(session: ISession) {
     const nextId = Math.max.apply(null, this.event.sessions.map(s => s.id));
     session.id = nextId + 1;
     this.event.sessions.push(session);
@@ -39,7 +42,7 @@ export class EventDetailsComponent implements OnInit {
     this.addMode = false;
   }
 
-  cancelAddSession(){
+  cancelAddSession() {
     this.addMode = false;
   }
 }

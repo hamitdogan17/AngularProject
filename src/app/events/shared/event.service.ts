@@ -1,32 +1,53 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { IEvent } from './event.model';
+import { IEvent, ISession } from './event.model';
 
 @Injectable()
 export class EventService {
-  getEvents(): Observable<IEvent[]>{
-    let subject = new Subject<IEvent[]>()
-    setTimeout(() => {subject.next(EVENTS); subject.complete() }, 100)
-    return subject
+  getEvents(): Observable<IEvent[]> {
+    const subject = new Subject<IEvent[]>()
+    setTimeout(() => { subject.next(EVENTS); subject.complete() }, 100);
+    return subject;
   }
 
-  getEvent(id: number):IEvent {
-    return EVENTS.find(event => event.id === id)
+  getEvent(id: number): IEvent {
+    return EVENTS.find(event => event.id === id);
   }
 
-  saveEvent(event){
-    event.id = 999
-    event.session = []
-    EVENTS.push(event)
+  saveEvent(event) {
+    event.id = 999;
+    event.session = [];
+    EVENTS.push(event);
   }
 
-  updateEvent(event){
-    let index = EVENTS.findIndex(x => x.id = event.id)
-    EVENTS[index] = event
+  updateEvent(event) {
+    const index = EVENTS.findIndex(x => x.id = event.id);
+    EVENTS[index] = event;
+  }
+
+  searchSessions(searchTerm: string) {
+    let term = searchTerm.toLowerCase();
+    let results: ISession[] = [];
+
+    EVENTS.forEach(event => {
+      let matchingSessions = event.sessions.filter(session => session.name.toLowerCase().indexOf(term) > -1);
+      matchingSessions = matchingSessions.map((session: any) => {
+        session.eventId = event.id;
+        return session;
+      });
+      results = results.concat(matchingSessions);
+    });
+
+    const emitter = new EventEmitter(true);
+    setTimeout(() => {
+      emitter.emit(results);
+    }, 100);
+
+    return emitter;
   }
 }
 
-const EVENTS:IEvent[] = [
+const EVENTS: IEvent[] = [
   {
     id: 1,
     name: 'Angular Connect',
